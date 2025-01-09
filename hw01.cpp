@@ -1,7 +1,4 @@
 /*
-
-test commits
-
 *   Evan Moncheck : 002905615 : no special compiling instructions
 *   
 *   basic header for a c++ program to include necessary functions and simplify print statements
