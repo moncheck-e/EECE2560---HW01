@@ -113,13 +113,18 @@ class Course
         //displays the above Course’s three private attributes
         void printCourse()
         {
-
+            cout << "Course ID: " << ID << endl;
+            cout << "Course Title: " << title << endl;
+            cout << "Course Credit Hours: " << credits << endl;
         }
 
         //add a constructor that is used to fill the data of the Course’s three private attributes.
-        Course()
+        Course(string i, string t, int c)
         {
-
+            ID = i;
+            title = t;
+            credits = c;
+            cout << "Course created successfully." << endl;
         }
 
 };
@@ -139,34 +144,30 @@ class CourseSection : public Course
         // in the roster list
         void fillRosterInfo()
         {
-
+            
         }
 
         //prints the section info starting with its course info,
         //followed by printing the info of all students in the section
         void printSectionInfo()
         {
-
         }
 
         //prints the average GPA of the students in the section
         void printAverageGPA()
         {
-
         }
 
         //prints the max GPA and the student info with that GPA
         //Assume there is no more than one student with such max GPA.
         void printMaxGPAinfo()
         {
-
         }
 
         //prints info of the students in the
         //section who are from major mjr
         void printMajorStudents(string mjr)
         {
-
         }
 
         ///a constructor that takes as argument the three attributes of the Course to which the
@@ -174,6 +175,11 @@ class CourseSection : public Course
         //class (Course) constructor using the course three attributes. Then it dynamically
         //creates the array needed for the roster attribute with size sectionSize.
         /// a destructor to delete any dynamically allocated memory
+
+        ~CourseSection()
+        {
+
+        }
 };
 
 int main() {
