@@ -68,7 +68,13 @@ class Student : public Person
         //first calls the base class function: readPersonInfo
         void readStudentInfo()
         {
-
+            readPersonInfo();
+            cout << "Enter the student's ID: ";
+            cin >> ID;
+            cout << endl << "Enter the student's major: ";
+            cin >> major;
+            cout << endl << "Enter the student's GPA: ";
+            cin >> gpa;
         }
 
         /*  first calls the base class function printPersonInfo, 
@@ -76,19 +82,22 @@ class Student : public Person
         */
         void printStudentInfo()
         {
-
+            printPersonInfo();
+            cout << "Student ID: " << ID << endl;
+            cout << "Student Major: " << major << endl;
+            cout << "Student GPA: " << gpa << endl;
         }
 
         //returns the student’s GPA
         float studentGPA()
         {
-
+            return gpa;
         }
 
         //returns the student’s Major
         string studentMajor()
         {
-
+            return major;
         }
 };
 
@@ -110,7 +119,7 @@ class Course
         //add a constructor that is used to fill the data of the Course’s three private attributes.
         Course()
         {
-            
+
         }
 
 };
