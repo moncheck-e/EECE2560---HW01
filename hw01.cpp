@@ -152,40 +152,51 @@ class CourseSection : public Course
         // in the roster list
         void fillRosterInfo()
         {
-            for(int x=1; x <= sectionSize; x++)
+            
+            for(int x=0; x < sectionSize; x++)
             {
-                Student* temp = new Student;
-                temp->readPersonInfo();
-                
+                Student temp = Student();
+                temp.readPersonInfo();
+                roster[x] = temp;
             }
         }
 
         //prints the average GPA of the students in the section
         void printAverageGPA()
         {
-            float tempSUM;
-            for(int x=1; x <= sectionSize; x++)
+            float tempSUM = roster[0].studentGPA();
+            for(int x=1; x < sectionSize; x++)
             {
-                
+                tempSUM += roster[x].studentGPA();
             }
+            cout << tempSUM/sectionSize << endl;
         }
 
         //prints the max GPA and the student info with that GPA
         //Assume there is no more than one student with such max GPA.
         void printMaxGPAinfo()
         {
-            for(int x=1; x <= sectionSize; x++)
+            float tempMAX = roster[0].studentGPA();
+            for(int x=1; x < sectionSize; x++)
             {
-                
+                if(roster[x].studentGPA()>tempMAX)
+                {
+                    tempMAX = roster[x].studentGPA();
+                }
             }
+            cout << "The highest GPA is: " << tempMAX << endl;
         }
 
         //prints info of the students in the
         //section who are from major mjr
         void printMajorStudents(string mjr)
         {
-            for(int x=1; x <= sectionSize; x++)
+            for(int x=0; x < sectionSize; x++)
             {
+                if(roster[x].studentMajor()==mjr)
+                {
+                    roster[x].printStudentInfo();
+                }
                 
             }
         }
