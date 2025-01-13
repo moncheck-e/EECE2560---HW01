@@ -19,20 +19,29 @@ class Person
 
     public:
 
-        //fills the thee private Person variables with user inputs
         void readPersonInfo()
         {
-            cout << "Enter the name of the person: " ;   cin >> fullname ;
-            cout << endl << "Enter the address of the person: ";    cin >> address;
-            cout << endl << "Enter the age of the person: ";    cin >> age;
+            cin.ignore();
+            cout << "Enter the name of the person: ";
+            getline(cin, fullname);  // This reads the full name, even if it has spaces
 
-            //age verified to be between 9 and 99
-            while(age < 9 || age > 99)
+            cout << "Enter the address of the person: ";
+            getline(cin, address);  // This reads the full address, even if it has spaces
+
+            cout << "Enter the age of the person: ";
+            cin >> age;
+
+            // Age verified to be between 9 and 99
+            while (age < 9 || age > 99) 
             {
-                cout << endl << "Invalid age. Please enter an age between 9 and 99.";   cin >> age;
+                cout << endl << "Invalid age. Please enter an age between 9 and 99: ";
+                cin >> age;
             }
 
-            cout << endl << "Person attributes assigned successfully." << endl;
+            // Clear the input buffer before the next getline (important if any further getline calls are used)
+            cin.ignore();  // This clears the newline character left in the input buffer
+
+            cout << "Person attributes assigned successfully." << endl << endl;
         }
 
         //prints the three private Person variables
@@ -64,9 +73,13 @@ class Student : public Person
         void readStudentInfo()
         {
             readPersonInfo();
-            cout << "Enter the student's ID: ";    cin >> ID;
-            cout << endl << "Enter the student's major: ";    cin >> major;
-            cout << endl << "Enter the student's GPA: ";    cin >> gpa;
+            cout << "Enter the student's ID: ";    
+            cin >> ID;
+            cout << "Enter the student's major: ";    
+            cin >> major;
+            cout << "Enter the student's GPA: ";    
+            cin >> gpa;
+            cout << "Student attributes assigned successfully to " << personName() << endl << endl;
         }
 
         /*  first calls the base class function printPersonInfo, 
@@ -97,16 +110,13 @@ class Course
 
     public:
 
-        //empty constructor used to allow CourseSection() constructor to function initially
-        Course(){}
-
         //a constructor that is used to fill the data of the Course’s three private attributes.
         Course(string i, string t, int c)
         {
             ID = i;
             title = t;
             credits = c;
-            cout << "Course created successfully." << endl;
+            cout << "Course created successfully." << endl << endl;
         }
 
         //displays the above Course’s three private attributes
@@ -134,9 +144,8 @@ class CourseSection : public Course
         //class (Course) constructor using the course three attributes. Then it dynamically
         //creates the array needed for the roster attribute with size sectionSize.
         
-        CourseSection(string iden, string ttl, int cr, int num) 
-        {
-            Course(iden,  ttl, cr);
+        CourseSection(string iden, string ttl, int cr, int num) : Course(iden, ttl, cr) 
+        {    
             sectionSize = num;
             roster = new Student[sectionSize];
         }
@@ -156,7 +165,7 @@ class CourseSection : public Course
             for(int x=0; x < sectionSize; x++)
             {
                 Student temp = Student();
-                temp.readPersonInfo();
+                temp.readStudentInfo();
                 roster[x] = temp;
             }
         }
@@ -169,7 +178,7 @@ class CourseSection : public Course
             {
                 tempSUM += roster[x].studentGPA();
             }
-            cout << tempSUM/sectionSize << endl;
+            cout << "The average GPA of the students in the section: " << tempSUM/sectionSize << endl;
         }
 
         //prints the max GPA and the student info with that GPA
@@ -197,7 +206,7 @@ class CourseSection : public Course
                 {
                     roster[x].printStudentInfo();
                 }
-                
+                cout << endl;
             }
         }
 
@@ -211,13 +220,14 @@ class CourseSection : public Course
         }
 };
 
-int main() {
-    /*
+int main() 
+{
+    
     int num, cr;
     string id, tl, mj;
-
+    /*
     cout << "What is the Course ID? "; cin >> id;
-    cout << "What is the course title? ";
+    cout << "What is the Course title? ";
     cin.get(); //remove the leftover "new line" character from cin
     getline(cin, tl); //allows for spaces in the title but first clear the input buffer.
     cout << "What are the course credit hours? "; cin >> cr;
@@ -242,5 +252,34 @@ int main() {
     cout << "\nThe list of students in the major:\n";
     sec. printMajorStudents(mj);
     */
+
+    
+    
+        
+    cout << "What is the Course ID? "; cin >> id;
+    cout << "What is the Course title? "; cin >> tl;
+    cout << "How many credits is the course? "; cin >> cr;
+    cout << "How many students are in the section? "; cin >> num;
+    CourseSection sec(id, tl, cr, num);
+    sec.fillRosterInfo();
+
+    cout << "The following is the section info (course and students info):\n";
+    sec.printSectionInfo();
+    cout << endl;
+
+    //The average GPA of the students in the section
+    sec.printAverageGPA();
+    cout << endl;
+
+    //The max GPA info
+    sec.printMaxGPAinfo();
+    cout << endl;
+
+    cout << "What major you want to print its students? "; cin >> mj;
+    cout << "\nThe list of students in the major:\n";
+    sec. printMajorStudents(mj);
+        
     return 0;
-}
+
+
+ }
